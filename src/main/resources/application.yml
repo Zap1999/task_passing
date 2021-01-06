@@ -1,0 +1,11 @@
+server:
+  servlet:
+    contextPath: /api
+spring:
+  jpa:
+#    hibernate:
+#      ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/sqlacademy"
+    username: avashchenok
