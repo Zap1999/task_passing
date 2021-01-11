@@ -9,6 +9,7 @@ import com.sqlacademy.student_progress.dto.TaskSummary;
 import com.sqlacademy.student_progress.dto.UserQuiz;
 import com.sqlacademy.student_progress.dto.UserQuizResults;
 import com.sqlacademy.student_progress.dto.UserQuizSummary;
+import com.sqlacademy.student_progress.dto.UsersCompared;
 import com.sqlacademy.student_progress.service.ITaskResultsService;
 import com.sqlacademy.task_passing.entity.PassingSummary;
 import com.sqlacademy.task_passing.entity.Quiz;
@@ -81,6 +82,7 @@ public class TaskResultsService implements ITaskResultsService {
         var user = this.userRepository.findById(userQuiz.userId).get();
         result.userId = userQuiz.userId;
         result.quizId = userQuiz.quizId;
+        result.quizName = quiz.getName();
         var tasks = this.taskRepository.findAll();
         tasks.removeIf(t -> t.getUser().getId() != user.getId() && t.getQuiz().getId() != quiz.getId());
         var taskSummaries = new ArrayList<TaskSummary>();
@@ -108,5 +110,13 @@ public class TaskResultsService implements ITaskResultsService {
         taskSummary.passingSummaryId = passingSummary.getId();
         taskSummary.taskId = task.getId();
         return taskSummary;
+    }
+
+    @Override
+    public UserQuizSummary[] compareAchivements(UsersCompared users) {
+        var summaries = new ArrayList<UserQuizSummary>();
+        summaries.add(getQuizSummary(new UserQuiz(users.currentUserId, users.quizId)));
+        summaries.add(getQuizSummary(new UserQuiz(users.anotherUserId, users.quizId)));
+        return (UserQuizSummary[]) summaries.toArray();
     }
 }

@@ -13,9 +13,4 @@ public class Quiz {
     @GeneratedValue
 	private Long id;
     private String name;
-    private String surname;
-    private String email;
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
 }

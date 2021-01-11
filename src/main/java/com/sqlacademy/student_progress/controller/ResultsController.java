@@ -3,6 +3,7 @@ package com.sqlacademy.student_progress.controller;
 import com.sqlacademy.student_progress.dto.UserQuiz;
 import com.sqlacademy.student_progress.dto.UserQuizResults;
 import com.sqlacademy.student_progress.dto.UserQuizSummary;
+import com.sqlacademy.student_progress.dto.UsersCompared;
 import com.sqlacademy.student_progress.service.ITaskResultsService;
 
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,10 @@ public class ResultsController {
     @PostMapping("/quiz-summary")
     public ResponseEntity<UserQuizSummary> getQuizSummary(@RequestBody UserQuiz userQuiz) {
         return ResponseEntity.ok(taskResultsService.getQuizSummary(userQuiz));
+    }
+
+    @PostMapping("/compare-achievements")
+    public ResponseEntity<UserQuizSummary[]> compareAchivements(@RequestBody UsersCompared users) {
+        return ResponseEntity.ok(taskResultsService.compareAchivements(users));
     }
 }
